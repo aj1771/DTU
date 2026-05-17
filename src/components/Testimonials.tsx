@@ -10,19 +10,19 @@ export default function Testimonials() {
   const reviews = [
     {
       name: "Adrian Vale",
-      role: "CEO · OmniStream",
+      /** role: "CEO · OmniStream",*/
       text: "D_T_U didn't just redesign our site; they redefined how we communicate our value. The new brand system is flawless and the performance is unmatched.",
       initials: "AV"
     },
     {
       name: "Elena Cross",
-      role: "Founder · Aether Studio",
+      /**role: "Founder · Aether Studio",*/
       text: "Working with D_T_U was the best decision we made this year. Their technical expertise combined with their design intuition is rare to find in an agency.",
       initials: "EC"
     },
     {
       name: "Damien Cole",
-      role: "Director of Ops · Flux",
+      /**role: "Director of Ops · Flux",*/
       text: "The website modernization they performed was surgical. Zero downtime, immediate performance gains, and a visual polish that instantly elevated our brand status.",
       initials: "DC"
     }
