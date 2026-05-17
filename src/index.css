@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-premium-blue: #3E3EFF;
+  --color-premium-violet: #8B5CF6;
+  --color-silver: #C0C0C0;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* ─── DARK MODE TOKEN DEFAULTS ─────────────────────────────────────── */
+:root,
+html.dark {
+  --bg-primary: #050505;
+  --bg-secondary: #0C0C0C;
+  --bg-tertiary: #151515;
+  --bg-charcoal: #111111;
+  --text-primary: #E5E5E5;
+  --text-secondary: #9CA3AF;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --input-bg: #111111;
+  --nav-bg-scrolled: rgba(5, 5, 5, 0.85);
+  color-scheme: dark;
+}
+
+/* ─── LIGHT MODE TOKENS ─────────────────────────────────────────────── */
+html.light {
+  --bg-primary: #F5F5F7;
+  --bg-secondary: #EBEBED;
+  --bg-tertiary: #E0E0E4;
+  --bg-charcoal: #EAEAEE;
+  --text-primary: #111111;
+  --text-secondary: #555566;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --input-bg: #FFFFFF;
+  --nav-bg-scrolled: rgba(245, 245, 247, 0.85);
+  color-scheme: light;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    @apply font-sans antialiased selection:bg-premium-violet/30;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  /* ─── SPACING: tighter section padding, better visual balance ─── */
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-12;
+  }
+
+  /* Glass card adapts to theme */
+  .glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+
+  .glow-blob {
+    @apply absolute rounded-full blur-[100px] pointer-events-none opacity-15;
+  }
+
+  /* Dynamic themed utility classes used across components */
+  .bg-base    { background-color: var(--bg-primary); }
+  .bg-card    { background-color: var(--bg-secondary); }
+  .bg-charcoal { background-color: var(--bg-charcoal); }
+  .text-main  { color: var(--text-primary); }
+  .text-dim   { color: var(--text-secondary); }
+  .border-main { border-color: var(--border-color); }
+
+  /* Theme-aware input fields */
+  .theme-input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .theme-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+  .theme-input:focus {
+    outline: none;
+    border-color: rgba(62, 62, 255, 0.5);
+  }
+}
+
+/* ─── LIGHT MODE OVERRIDES for inline Tailwind dark colours ─────────── */
+
+/* Sections that use bg-black */
+html.light section,
+html.light footer {
+  background-color: var(--bg-primary) !important;
+}
+
+/* bg-charcoal references in components (Services, Contact use bg-charcoal) */
+html.light .bg-charcoal,
+html.light [class*="bg-charcoal"] {
+  background-color: var(--bg-charcoal) !important;
+}
+
+/* White text overrides — let CSS variable handle it */
+html.light .text-white     { color: var(--text-primary) !important; }
+html.light .text-white\/50 { color: rgba(17,17,17,0.55) !important; }
+html.light .text-white\/40 { color: rgba(17,17,17,0.45) !important; }
+html.light .text-white\/30 { color: rgba(17,17,17,0.35) !important; }
+html.light .text-white\/20 { color: rgba(17,17,17,0.25) !important; }
+html.light .text-white\/10 { color: rgba(17,17,17,0.12) !important; }
+html.light .text-gray-400  { color: rgba(17,17,17,0.5) !important; }
+
+/* Dark bg cards in light mode */
+html.light .bg-black\/40   { background-color: rgba(255,255,255,0.8) !important; }
+html.light .bg-black       { background-color: var(--bg-primary) !important; }
+
+/* Borders */
+html.light .border-white\/5  { border-color: rgba(0,0,0,0.06) !important; }
+html.light .border-white\/8  { border-color: rgba(0,0,0,0.08) !important; }
+html.light .border-white\/10 { border-color: rgba(0,0,0,0.10) !important; }
+
+/* Navbar in light mode */
+html.light .navbar-link { color: rgba(17,17,17,0.6); }
+html.light .navbar-link:hover { color: #111111; }
+
+/* Loader: keep dark during loading regardless */
+html.light .loader-override { background-color: #050505 !important; }
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────────────── */
+.cursor-dot {
+  @apply fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-difference transition-[width,height] duration-200;
+  background-color: #FFFFFF;
+}
+html.light .cursor-dot { mix-blend-mode: normal; background-color: #111111; }
+
+.cursor-ring {
+  @apply fixed top-0 left-0 w-10 h-10 border opacity-30 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-[width,height,border-color,background] duration-300;
+  border-color: #FFFFFF;
+}
+html.light .cursor-ring { border-color: #111111; opacity: 0.2; }
+
+body.cursor-hover .cursor-dot  { @apply w-1 h-1; }
+body.cursor-hover .cursor-ring { @apply w-16 h-16; background: rgba(255,255,255,0.05); border-color: #FFFFFF; }
+html.light body.cursor-hover .cursor-ring { background: rgba(0,0,0,0.03); border-color: #111111; }
+
+/* ─── SCROLL PROGRESS ───────────────────────────────────────────────── */
+.scroll-progress {
+  @apply fixed top-0 left-0 h-0.5 bg-gradient-to-r from-premium-violet to-premium-blue z-[10000] scale-x-0 origin-left;
+}
+
+/* ─── SCROLLBAR ─────────────────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── SMOOTH COLOUR TRANSITIONS everywhere ──────────────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.35s;
+  transition-timing-function: ease;
+}
+/* But NOT for transforms/opacity/layout — keep animations snappy */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, transform, box-shadow;
+}
+
+
+/* ─── MOBILE TITLE CENTERING (Task 5) ──────────────────────────────── */
+/* Ensures all major section headings center-align on mobile without     */
+/* touching desktop layouts (md: and above are unaffected).              */
+@media (max-width: 767px) {
+  h2.font-display,
+  .text-center h2,
+  section h2 {
+    text-align: center;
+    width: 100%;
+  }
+}
