@@ -16,6 +16,8 @@ export default function Contact() {
     message: '',
   })
 
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -36,10 +38,9 @@ export default function Contact() {
 
     if (error) {
       console.log(error)
-      alert('Something went wrong.')
+      setStatus('error')
     } else {
-      alert('Inquiry sent successfully!')
-
+      setStatus('success')
       setFormData({
         first_name: '',
         last_name: '',
@@ -209,6 +210,30 @@ export default function Contact() {
                   style={inputStyle}
                 />
               </div>
+
+              {status === 'success' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-emerald-400 text-sm text-center font-mono tracking-widest uppercase"
+                >
+                  ✓ Inquiry sent successfully!
+                </motion.p>
+              )}
+
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-red-400 text-sm text-center"
+                >
+                  Something went wrong. Please try again.
+                </motion.p>
+              )}
 
               <button
                 type="submit"
