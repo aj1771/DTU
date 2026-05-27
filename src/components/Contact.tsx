@@ -103,7 +103,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: 'var(--text-secondary)' }}>Email Us</p>
-                <p className="text-xl font-display font-bold" style={{ color: 'var(--text-primary)' }}>hello@dtu.studio</p>
+                <p className="text-xl font-display font-bold" style={{ color: 'var(--text-primary)' }}>dtu.studio@gmail.com</p>
               </div>
             </div>
 
