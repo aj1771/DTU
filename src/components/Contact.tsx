@@ -5,53 +5,49 @@
 
 import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Clock } from 'lucide-react';
-import { useState, type FormEvent } from 'react';
-
-// TASK 5: Formspree integration
-// 1. Go to https://formspree.io → create free account → New Form
-// 2. Copy your form endpoint (e.g. https://formspree.io/f/xpzgwqab)
-// 3. Add to .env:  VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_ID
-// 4. Redeploy on Vercel — add the same env var in Vercel dashboard → Settings → Environment Variables
-// The key is never exposed as a secret (it's a public form ID), but using an env var
-// keeps it out of source control and easy to rotate.
-const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
+import { useState } from 'react'
+import { supabase } from '../lib/supabase'
 
 export default function Contact() {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    message: '',
+  })
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
 
-    if (!FORMSPREE_ENDPOINT) {
-      // Fallback when env var not set — shows success for demo purposes
-      setStatus('success');
-      setTimeout(() => setStatus('idle'), 5000);
-      return;
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
+    e.preventDefault()
+
+    const { error } = await supabase
+      .from('contact_submissions')
+      .insert([formData])
+
+    if (error) {
+      console.log(error)
+      alert('Something went wrong.')
+    } else {
+      alert('Inquiry sent successfully!')
+
+      setFormData({
+        first_name: '',
+        last_name: '',
+        email: '',
+        message: '',
+      })
     }
-
-    setStatus('submitting');
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: new FormData(e.currentTarget),
-        headers: { Accept: 'application/json' },
-      });
-
-      if (res.ok) {
-        setStatus('success');
-        (e.target as HTMLFormElement).reset();
-        setTimeout(() => setStatus('idle'), 6000);
-      } else {
-        const data = await res.json();
-        setErrorMessage(data?.errors?.[0]?.message ?? 'Something went wrong. Please try again.');
-        setStatus('error');
-      }
-    } catch {
-      setErrorMessage('Network error. Please check your connection and try again.');
-      setStatus('error');
-    }
-  };
+  }
 
   const inputStyle = {
     backgroundColor: 'var(--input-bg)',
@@ -156,9 +152,11 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
-                    name="firstName"
+                    name="first_name"
                     required
                     placeholder="Enter first name"
+                    value={formData.first_name}
+                    onChange={handleChange}
                     className="rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-premium-blue transition-all cursor-none"
                     style={inputStyle}
                   />
@@ -169,9 +167,11 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
-                    name="lastName"
+                    name="last_name"
                     required
                     placeholder="Enter last name"
+                    value={formData.last_name}
+                    onChange={handleChange}
                     className="rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-premium-blue transition-all cursor-none"
                     style={inputStyle}
                   />
@@ -187,6 +187,8 @@ export default function Contact() {
                   name="email"
                   required
                   placeholder="name@company.com"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-premium-blue transition-all cursor-none"
                   style={inputStyle}
                 />
@@ -201,31 +203,18 @@ export default function Contact() {
                   required
                   rows={4}
                   placeholder="Tell us about your project..."
+                  value={formData.message}
+                  onChange={handleChange}
                   className="rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-premium-blue transition-all resize-none cursor-none"
                   style={inputStyle}
                 />
               </div>
 
-              {status === 'error' && (
-                <p className="text-red-400 text-sm">{errorMessage}</p>
-              )}
-
               <button
                 type="submit"
-                disabled={status === 'submitting' || status === 'success'}
-                className={`mt-4 py-4 rounded-lg font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-all duration-300 ${
-                  status === 'success'
-                    ? 'bg-emerald-500 text-white'
-                    : status === 'submitting'
-                    ? 'bg-premium-blue/60 text-white cursor-wait'
-                    : 'bg-premium-blue hover:bg-premium-blue/90 text-white shadow-[0_0_30px_rgba(62,62,255,0.3)]'
-                }`}
+                className="mt-4 py-4 rounded-lg font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-all duration-300 bg-premium-blue hover:bg-premium-blue/90 text-white shadow-[0_0_30px_rgba(62,62,255,0.3)]"
               >
-                {status === 'success'
-                  ? 'Message Sent Successfully ✓'
-                  : status === 'submitting'
-                  ? 'Sending...'
-                  : <><span>Send Inquiry</span><Send size={16} /></>}
+                <span>Send Inquiry</span><Send size={16} />
               </button>
             </form>
           </motion.div>
