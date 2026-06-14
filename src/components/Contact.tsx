@@ -77,7 +77,7 @@ export default function Contact() {
             <span className="text-premium-blue font-mono text-[10px] uppercase tracking-[0.3em] mb-4 block">
               Inquiry
             </span>
-            <h2 className="text-4xl md:text-7xl font-display font-extrabold mb-6" style={{ color: 'var(--text-primary)' }}>
+            <h2 className="text-2xl md:text-7xl font-display font-extrabold mb-6" style={{ color: 'var(--text-primary)' }}>
               Let's Start a <span className="text-premium-violet">Conversation.</span>
             </h2>
             <p className="max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
