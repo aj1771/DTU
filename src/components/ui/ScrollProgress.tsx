@@ -16,7 +16,17 @@ export default function ScrollProgress() {
   return (
     <motion.div
       className="scroll-progress h-1"
-      style={{ scaleX, transformOrigin: '0%' }}
+      style={{
+        scaleX,
+        transformOrigin: '0%',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        background: 'var(--text-primary)',
+        boxShadow: '0 0 8px var(--text-primary), 0 0 20px var(--text-primary), 0 0 40px var(--text-primary)',
+      }}
     />
   );
 }

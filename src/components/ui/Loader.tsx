@@ -2,11 +2,10 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
-export default function Loader() {
+export default function Loader({ onComplete }: { onComplete: () => void }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +16,7 @@ export default function Loader() {
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onComplete}>
       {loading && (
         <motion.div
           initial={{ opacity: 1 }}
