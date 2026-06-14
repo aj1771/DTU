@@ -77,8 +77,25 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+        </div>
 
-          <div>
+        <div className="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style={{ borderTop: '1px solid var(--border-color)' }}>
+          <p className="font-mono text-[10px] tracking-widest uppercase" style={{ color: 'var(--text-secondary)', opacity: 0.4 }}>
+            © {currentYear} D_T_U Studio. Built for Excellence.
+          </p>
+          <div className="flex gap-8">
+            {['Privacy', 'Terms', 'Cookies'].map((t) => (
+              <a key={t} href="#" className="text-[10px] uppercase font-mono tracking-widest transition-colors hover:text-premium-blue" style={{ color: 'var(--text-secondary)', opacity: 0.4 }}>
+                {t}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+/** <div>
             <h4 className="font-display font-bold uppercase text-xs tracking-[0.25em] mb-8" style={{ color: 'var(--text-primary)' }}>
               Newsletter
             </h4>
@@ -100,22 +117,4 @@ export default function Footer() {
                 →
               </button>
             </div>
-          </div>
-        </div>
-
-        <div className="pt-10 flex flex-col md:flex-row justify-between items-center gap-6" style={{ borderTop: '1px solid var(--border-color)' }}>
-          <p className="font-mono text-[10px] tracking-widest uppercase" style={{ color: 'var(--text-secondary)', opacity: 0.4 }}>
-            © {currentYear} D_T_U Studio. Built for Excellence.
-          </p>
-          <div className="flex gap-8">
-            {['Privacy', 'Terms', 'Cookies'].map((t) => (
-              <a key={t} href="#" className="text-[10px] uppercase font-mono tracking-widest transition-colors hover:text-premium-blue" style={{ color: 'var(--text-secondary)', opacity: 0.4 }}>
-                {t}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
+          </div> */
