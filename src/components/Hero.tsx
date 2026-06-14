@@ -120,7 +120,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-6xl md:text-8xl font-semibold leading-[0.9] tracking-tight mb-6 uppercase"
+          className="text-4xl md:text-8xl font-semibold leading-[0.9] tracking-tight mb-6 uppercase"
           style={{ color: 'var(--text-primary)' }}
         >
           Crafting <span className="italic" style={{ color: 'var(--text-secondary)', opacity: 0.6 }}>cinematic</span>{' '}
