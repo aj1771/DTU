@@ -150,7 +150,12 @@ export default function Hero() {
             Start Your Journey
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
-          <a
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+         /** <a
             href="#work"
             className="px-8 py-4 border rounded-md font-medium transition-all duration-300"
             style={{
@@ -159,10 +164,5 @@ export default function Hero() {
               backgroundColor: 'rgba(128,128,128,0.05)',
             }}
           >
-            Creative Showcase
-          </a>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+            Creative Showcase 
+          </a> */

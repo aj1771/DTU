@@ -124,14 +124,14 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="mt-10 p-8 rounded-2xl" style={{ border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-tertiary)' }}>
+            <div className="mt-10 p-8 rounded-2xl" style={{ border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-tertiary)'}}>
               <p className="text-sm italic" style={{ color: 'var(--text-secondary)' }}>
-                "D_T_U moved faster than any agency we've ever worked with. Their process is elite."
+                "D_T_U moves fast & work to compete with any agency making your partners be part of the elites."
               </p>
               <div className="mt-4 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full" style={{ backgroundColor: 'var(--border-color)' }} />
+                <div className="w-9 h-9 rounded-full" style={{ backgroundColor: 'var(--border-color)' }} />
                 <p className="text-[10px] uppercase tracking-widest font-bold" style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>
-                  AJ. Nkosi · Founder, Hyperion
+                  AJ. Nkosi · Founder
                 </p>
               </div>
             </div>
