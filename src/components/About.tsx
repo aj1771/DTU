@@ -125,7 +125,15 @@ const agency = {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-3">
+            </motion.div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+/** <div className="flex flex-wrap gap-3">
                 {['Next.js', 'React', 'TypeScript', 'UI/UX', 'Brand Design', 'Modernization'].map((tag) => (
                   <span
                     key={tag}
@@ -139,12 +147,5 @@ const agency = {
                     {tag}
                   </span>
                 ))}
-              </div>
-            </motion.div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
+              </div> */
+            
