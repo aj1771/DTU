@@ -164,6 +164,93 @@ body.cursor-hover .cursor-dot  { @apply w-1 h-1; }
 body.cursor-hover .cursor-ring { @apply w-16 h-16; background: rgba(255,255,255,0.05); border-color: #FFFFFF; }
 html.light body.cursor-hover .cursor-ring { background: rgba(0,0,0,0.03); border-color: #111111; }
 
+/* ─── DYNAMIC BACKGROUND (Task 3) ───────────────────────────────────── */
+/* Subtle, theme-aware ambient motion behind the whole page. Pure CSS so it
+   never blocks first paint and stays cheap on low-end devices. */
+.dynamic-bg-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.35;
+  will-change: transform;
+}
+html.light .dynamic-bg-blob { opacity: 0.22; }
+
+.dynamic-bg-blob-1 {
+  width: 50vw;
+  height: 50vw;
+  max-width: 700px;
+  max-height: 700px;
+  top: -10%;
+  left: -10%;
+  background: var(--color-premium-violet);
+  animation: drift-one 28s ease-in-out infinite;
+}
+
+.dynamic-bg-blob-2 {
+  width: 45vw;
+  height: 45vw;
+  max-width: 600px;
+  max-height: 600px;
+  bottom: -15%;
+  right: -10%;
+  background: var(--color-premium-blue);
+  animation: drift-two 34s ease-in-out infinite;
+}
+
+.dynamic-bg-blob-3 {
+  width: 35vw;
+  height: 35vw;
+  max-width: 500px;
+  max-height: 500px;
+  top: 40%;
+  left: 50%;
+  background: var(--color-silver);
+  opacity: 0.06;
+  animation: drift-three 40s ease-in-out infinite;
+}
+html.light .dynamic-bg-blob-3 { opacity: 0.05; }
+
+.dynamic-bg-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image:
+    linear-gradient(var(--text-primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--text-primary) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+html.light .dynamic-bg-grid { opacity: 0.04; }
+
+@keyframes drift-one {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(6vw, 8vh) scale(1.1); }
+}
+@keyframes drift-two {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-7vw, -6vh) scale(1.08); }
+}
+@keyframes drift-three {
+  0%, 100% { transform: translate(-50%, 0) scale(1); }
+  50%      { transform: translate(-50%, -10vh) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dynamic-bg-blob { animation: none; }
+}
+
+/* ─── SERVICE CARD IMAGES (Task 4) ──────────────────────────────────── */
+/* Keeps imagery clearly visible in both themes while preserving text
+   legibility behind the icon/title content. */
+.service-img-overlay {
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.88) 0%, rgba(5, 5, 5, 0.55) 45%, rgba(5, 5, 5, 0.25) 100%);
+}
+.service-card-img { filter: saturate(1.05) contrast(1.02); }
+html.light .service-img-overlay {
+  background: linear-gradient(to top, rgba(245, 245, 247, 0.92) 0%, rgba(245, 245, 247, 0.62) 45%, rgba(245, 245, 247, 0.22) 100%);
+}
+html.light .service-card-img { opacity: 0.6 !important; filter: saturate(1.1) contrast(1.05); }
+
 /* ─── SCROLL PROGRESS ───────────────────────────────────────────────── */
 .scroll-progress {
   @apply fixed top-0 left-0 h-0.5 bg-gradient-to-r from-premium-violet to-premium-blue z-[10000] scale-x-0 origin-left;

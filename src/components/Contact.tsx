@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Clock } from 'lucide-react';
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
+import dtuLogo from '../assets/dtu-logo.jpg'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -129,7 +130,12 @@ export default function Contact() {
                 "D_T_U moves fast & work to compete with any agency making your partners be part of the elites."
               </p>
               <div className="mt-4 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full" style={{ backgroundColor: 'var(--border-color)' }} />
+                <img
+                  src={dtuLogo}
+                  alt="D_T_U Studio logo"
+                  className="w-9 h-9 rounded-full object-cover border flex-shrink-0"
+                  style={{ borderColor: 'var(--border-color)' }}
+                />
                 <p className="text-[10px] uppercase tracking-widest font-bold" style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>
                   AJ. Nkosi · Founder
                 </p>

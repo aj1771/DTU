@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="pt-20 pb-10"
+      className="pt-20 pb-10 relative z-[1]"
       style={{
         backgroundColor: 'var(--bg-primary)',
         borderTop: '1px solid var(--border-color)',

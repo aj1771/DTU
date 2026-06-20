@@ -24,8 +24,10 @@ export default function ScrollProgress() {
         left: 0,
         right: 0,
         zIndex: 9999,
-        background: 'var(--text-primary)',
-        boxShadow: '0 0 8px var(--text-primary), 0 0 20px var(--text-primary), 0 0 40px var(--text-primary)',
+        background: 'linear-gradient(90deg, var(--color-premium-violet), var(--color-premium-blue))',
+        boxShadow:
+          '0 0 8px var(--color-premium-blue), 0 0 18px var(--color-premium-violet), 0 0 32px rgba(139, 92, 246, 0.6)',
+        willChange: 'transform',
       }}
     />
   );

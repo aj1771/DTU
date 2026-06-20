@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import CustomCursor from './components/ui/CustomCursor';
 import ScrollProgress from './components/ui/ScrollProgress';
 import Loader from './components/ui/Loader';
+import DynamicBackground from './components/ui/DynamicBackground';
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -62,7 +63,7 @@ export default function App() {
           <CustomCursor />
           <ScrollProgress />
           <Navbar />
-          <main>
+          <main className="relative z-[1]">
             <Hero />
             <About />
             <Services />
@@ -71,6 +72,7 @@ export default function App() {
             <Contact />
           </main>
           <Footer />
+          <DynamicBackground />
         </>
       )}
     </div>

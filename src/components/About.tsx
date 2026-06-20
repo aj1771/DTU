@@ -39,15 +39,18 @@ const agency = {
             transition={{ duration: 0.8 }}
             /* TASK 4: pb-16 gives room below the card for the absolutely-positioned badge.
                overflow-visible so the badge is never clipped by this wrapper. */
-            className="relative pb-16"
+            className="relative pb-16 min-w-0 w-full"
           >
             {/* Code card — overflow-hidden only on the card itself, not the wrapper */}
-            <div className="glass-card rounded-2xl p-8 flex flex-col justify-center relative overflow-hidden group">
+            <div className="glass-card rounded-2xl p-5 sm:p-8 flex flex-col justify-center relative overflow-hidden group w-full min-w-0">
               <div className="absolute inset-0 bg-gradient-to-br from-premium-violet/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-              <pre className="font-mono text-xs md:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              <pre
+                className="font-mono text-[11px] sm:text-xs md:text-sm leading-relaxed overflow-x-auto max-w-full no-scrollbar"
+                style={{ color: 'var(--text-secondary)' }}
+              >
                 {codeSnippet.split('\n').map((line, i) => (
-                  <div key={i}>
+                  <div key={i} className="whitespace-pre">
                     <span className="mr-4 select-none" style={{ opacity: 0.2, color: 'var(--text-secondary)' }}>
                       {(i + 1).toString().padStart(2, '0')}
                     </span>
@@ -68,14 +71,14 @@ const agency = {
             {/* TASK 4: Badge outside the overflow-hidden card — no more clipping.
                 Positioned at bottom of the padded wrapper area. */}
             <div
-              className="absolute bottom-0 right-0 md:-right-8 z-20 shadow-2xl backdrop-blur-xl border border-premium-violet/30 p-5 rounded-xl animate-bounce"
+              className="absolute bottom-0 right-0 md:-right-8 z-20 shadow-2xl backdrop-blur-xl border border-premium-violet/30 p-4 sm:p-5 rounded-xl animate-bounce max-w-[85%] sm:max-w-none"
               style={{ backgroundColor: 'var(--bg-primary)' }}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <div className="w-10 h-10 rounded-full bg-premium-violet/20 flex items-center justify-center text-premium-violet flex-shrink-0">
                   ⚡
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="font-medium text-sm whitespace-nowrap" style={{ color: 'var(--text-primary)' }}>
                     Innovation First
                   </p>
@@ -88,7 +91,7 @@ const agency = {
           </motion.div>
 
           {/* Right column */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +108,7 @@ const agency = {
               <p className="text-lg leading-relaxed mb-8" style={{ color: 'var(--text-secondary)' }}>
                 D_T_U is a modern digital community and innovation studio. We don't just build websites; we craft digital ecosystems that bridge the gap between human intuition and technical excellence.
               </p>
-
+              
               <div className="grid grid-cols-2 gap-8 mb-10">
                 {stats.map((stat, i) => (
                   <motion.div
@@ -133,19 +136,3 @@ const agency = {
     </section>
   );
 }
-/** <div className="flex flex-wrap gap-3">
-                {['Next.js', 'React', 'TypeScript', 'UI/UX', 'Brand Design', 'Modernization'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-4 py-1.5 rounded-full text-[10px] md:text-[11px] font-mono uppercase tracking-wider"
-                    style={{
-                      border: '1px solid var(--border-color)',
-                      backgroundColor: 'rgba(128,128,128,0.05)',
-                      color: 'var(--text-secondary)',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div> */
-            

@@ -20,31 +20,31 @@ const services = [
     icon: <Monitor className="w-8 h-8" />,
     title: 'Web Design',
     desc: 'Premium, cinematic websites designed to capture attention and convert visitors into loyal advocates.',
-    image: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=800',
   },
   {
     icon: <Layers className="w-8 h-8" />,
     title: 'UI/UX Design',
     desc: 'Intuitive digital interfaces that prioritize human experience and seamless interaction patterns.',
-    image: 'https://images.unsplash.com/photo-1586717799252-bd134ad00e26?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=800',
   },
   {
     icon: <Palette className="w-8 h-8" />,
     title: 'Branding',
     desc: 'Bold digital identities and brand systems engineered for modern luxury and technical authority.',
-    image: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=800',
   },
   {
     icon: <RefreshCw className="w-8 h-8" />,
     title: 'Modernization',
     desc: 'Transforming legacy web platforms into high-performance, future-ready digital experiences.',
-    image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800',
   },
   {
     icon: <Search className="w-8 h-8" />,
     title: 'Digital Presence',
     desc: 'Comprehensive strategies to amplify your online reach through performance SEO and content authority.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&q=80&w=800',
   },
   {
     icon: <Zap className="w-8 h-8" />,
@@ -54,9 +54,17 @@ const services = [
   },
 ];
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
-  const [flipped, setFlipped] = useState(false);
-
+function ServiceCard({
+  service,
+  index,
+  isFlipped,
+  onToggle,
+}: {
+  service: typeof services[0];
+  index: number;
+  isFlipped: boolean;
+  onToggle: () => void;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -65,13 +73,13 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       transition={{ delay: index * 0.1, duration: 0.5 }}
       className="relative h-[340px] cursor-pointer group"
       style={{ perspective: '1200px' }}
-      onClick={() => setFlipped((f) => !f)}
+      onClick={onToggle}
     >
       <div
         className="relative w-full h-full transition-transform duration-700 ease-in-out"
         style={{
           transformStyle: 'preserve-3d',
-          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
         {/* FRONT */}
@@ -80,12 +88,13 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as React.CSSProperties}
         >
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
             <img
               src={service.image}
               alt={service.title}
-              className="w-full h-full object-cover opacity-20 transition-all duration-1000 group-hover:opacity-40 group-hover:scale-105"
+              loading="lazy"
+              className="w-full h-full object-cover opacity-45 group-hover:opacity-60 transition-all duration-1000 group-hover:scale-105 service-card-img"
             />
+            <div className="absolute inset-0 service-img-overlay" />
           </div>
 
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-premium-violet/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
@@ -150,6 +159,8 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 }
 
 export default function Services() {
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
   return (
     <section
       id="services"
@@ -186,18 +197,24 @@ export default function Services() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((service, i) => (
-            <ServiceCard key={service.title} service={service} index={i} />
+            <ServiceCard
+              key={service.title}
+              service={service}
+              index={i}
+              isFlipped={flippedIndex === i}
+              onToggle={() => setFlippedIndex((prev) => (prev === i ? null : i))}
+            />
           ))}
         </div>
-
-        {/* Ready to Start — moved up from removed Work section */}
+{/* Ready to Start — moved up from removed Work section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-20 text-center"
         >
-          <a
+          
+            <a
             href="#contact"
             className="inline-flex items-center gap-4 font-display font-bold text-xl group"
             style={{ color: 'var(--text-secondary)' }}
